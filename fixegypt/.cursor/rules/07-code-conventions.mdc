@@ -1,0 +1,53 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Code Conventions & Best Practices
+
+## General Conventions
+- ES modules for imports/exports (using `import`/`export`)
+- Async/await for asynchronous code
+- Classes for encapsulation
+- Clear error handling with custom ApiError class
+- Consistent file and directory naming
+
+## Project Organization
+- Domain-driven folder structure
+- Hexagonal architecture layers
+- Feature-based organization within layers
+- Clear separation of concerns
+
+## Performance Considerations
+- Database query optimization (indexes, projections)
+- Asynchronous processing where appropriate
+- Caching strategies for expensive operations
+- Rate limiting and request throttling
+- Resource cleanup (e.g., file uploads)
+
+## Security Practices
+- Input validation for all user data
+- JWT token security (appropriate expiration)
+- Password hashing with bcrypt
+- Role-based authorization checks
+- Sanitization of user inputs
+
+## Error Handling
+- Custom ApiError for application errors
+- Centralized error handling middleware
+- Appropriate HTTP status codes
+- Detailed logging with Winston
+- Graceful error recovery
+
+## Documentation
+- JSDoc comments for all functions
+- Swagger annotations for API endpoints
+- Clear and concise function names
+- README and documentation files
+- Code comments for complex logic
+
+## Testing
+- Unit tests for domain entities and use cases
+- Integration tests for APIs
+- Test utilities and mocks
+- Consistent test naming and structure

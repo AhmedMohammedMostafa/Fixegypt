@@ -1,0 +1,41 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Application Use Cases
+
+Application use cases implement business workflows by orchestrating domain entities and services.
+
+## User Use Cases
+- [RegisterUserUseCase](mdc:src/application/use-cases/user/RegisterUserUseCase.js): Handles new user registration with validation
+- [LoginUserUseCase](mdc:src/application/use-cases/user/LoginUserUseCase.js): Authenticates users and generates tokens
+
+## Report Use Cases
+- [CreateReportUseCase](mdc:src/application/use-cases/report/CreateReportUseCase.js): Creates new reports with image processing and AI analysis
+
+## Key Characteristics
+1. **Input Validation**: Validates all input before processing
+2. **Dependency Injection**: Dependencies are injected via constructor
+3. **Single Responsibility**: Each use case handles one specific business workflow
+4. **Error Handling**: Uses ApiError for consistent error responses
+5. **Orchestration**: Coordinates multiple domain operations into a coherent workflow
+
+## Implementation Pattern
+All use cases follow this pattern:
+```javascript
+class SomeUseCase {
+  constructor(dependencies) {
+    this.dependencies = dependencies;
+  }
+
+  async execute(input) {
+    // 1. Validate input
+    // 2. Process business logic
+    // 3. Return result
+  }
+}
+```
+
+Use cases should not contain infrastructure concerns like HTTP, database specifics, or external API details.
+

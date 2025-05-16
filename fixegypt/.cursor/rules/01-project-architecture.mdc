@@ -1,0 +1,36 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Project Architecture
+
+FixEgypt follows a clean hexagonal architecture (ports and adapters) with three distinct layers:
+
+## Domain Layer
+The core business entities and interfaces, independent of external systems:
+- [User Entity](mdc:src/domain/entities/User.js)
+- [Report Entity](mdc:src/domain/entities/Report.js)
+- [Repository Interfaces](mdc:src/domain/repositories/UserRepository.js)
+- [Auth Service](mdc:src/domain/services/AuthService.js)
+
+## Application Layer
+Contains business use cases that orchestrate domain entities:
+- [Register User Use Case](mdc:src/application/use-cases/user/RegisterUserUseCase.js)
+- [Login User Use Case](mdc:src/application/use-cases/user/LoginUserUseCase.js)
+- [Create Report Use Case](mdc:src/application/use-cases/report/CreateReportUseCase.js)
+
+## Infrastructure Layer
+External implementations and adapters:
+- [MongoDB Models](mdc:src/infrastructure/persistence/models/UserModel.js)
+- [Repository Implementations](mdc:src/infrastructure/persistence/repositories/MongoUserRepository.js)
+- [Web Controllers](mdc:src/infrastructure/web/controllers/reportController.js)
+- [AI Service](mdc:src/infrastructure/ai/AIService.js)
+- [Email Service](mdc:src/infrastructure/email/EmailService.js)
+
+## Main Application
+- [Server Entry Point](mdc:src/server.js)
+- [Configuration](mdc:src/config.js)
+
+This architecture ensures separation of concerns, testability, and maintainability.
+

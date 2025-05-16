@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Infrastructure Layer
+
+The infrastructure layer implements adapters to external systems and technologies.
+
+## Web Infrastructure
+- [Controllers](mdc:src/infrastructure/web/controllers/reportController.js): HTTP request handlers
+- [Middlewares](mdc:src/infrastructure/web/middlewares/authMiddleware.js): Authentication, validation, error handling
+- [Validators](mdc:src/infrastructure/web/validators/reportValidator.js): Input validation using Joi
+- [Routes](mdc:src/server.js): API endpoint definitions
+
+## Persistence
+- [Database Connection](mdc:src/infrastructure/persistence/database.js): MongoDB connection
+- [Models](mdc:src/infrastructure/persistence/models/ReportModel.js): Mongoose schemas
+- [Repository Implementations](mdc:src/infrastructure/persistence/repositories/MongoReportRepository.js): MongoDB-specific repository implementations
+
+## Services
+- [AI Service](mdc:src/infrastructure/ai/AIService.js): Integration with AI for image analysis and urgency detection
+- [Email Service](mdc:src/infrastructure/email/EmailService.js): Email notifications using Nodemailer
+
+## Error Handling
+- [Error Handler](mdc:src/infrastructure/web/middlewares/errorHandler.js): Centralized error handling
+- [Logger](mdc:src/infrastructure/web/middlewares/logger.js): Winston logging
+
+## File Uploads
+- [Upload Middleware](mdc:src/infrastructure/web/middlewares/uploadMiddleware.js): Handles image uploads with Multer
+
+All infrastructure implementations should adapt external concerns to the interfaces expected by the application layer, maintaining the dependency rule of hexagonal architecture.
+

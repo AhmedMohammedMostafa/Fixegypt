@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Domain Entities
+
+Domain entities represent the core business objects in the FixEgypt system.
+
+## User Entity
+[User](mdc:src/domain/entities/User.js) represents citizens and admins in the system:
+- Contains Egyptian National ID with validation
+- Role-based access (citizen vs admin)
+- Email verification status
+- Methods for checking permissions
+
+## Report Entity
+[Report](mdc:src/domain/entities/Report.js) represents city infrastructure issues:
+- Contains issue details, location, images, status tracking
+- Includes AI analysis results
+- Status workflow: pending → in-progress → resolved/rejected
+- Urgency levels: low, medium, high, critical
+- Maintains full status history with admin actions
+
+## Domain Services
+[AuthService](mdc:src/domain/services/AuthService.js) handles core authentication logic:
+- Password hashing and comparison
+- JWT token generation and verification
+- Not dependent on external implementations
+
+## Repository Interfaces
+Define contracts for data operations:
+- [UserRepository](mdc:src/domain/repositories/UserRepository.js)
+- [ReportRepository](mdc:src/domain/repositories/ReportRepository.js)
+
+These entities encapsulate business rules and validation logic, independent of how they're stored or presented.
+

@@ -1,0 +1,19 @@
+/* In your global CSS file */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-marker-icon.custom-marker {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease;
+}
+
+.leaflet-marker-icon.custom-marker:hover {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+  transform: translateY(-2px);
+}
+
+.leaflet-popup-content {
+  min-width: fit-content !important;
+}

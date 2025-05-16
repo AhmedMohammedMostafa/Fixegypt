@@ -1,0 +1,37 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# AI Integration
+
+FixEgypt uses AI capabilities for image analysis and urgency detection in city reports.
+
+## Current Implementation
+The [AIService](mdc:src/infrastructure/ai/AIService.js) provides two main functions:
+1. **Image Analysis**: Classifies report images into categories (road damage, water issues, etc.)
+2. **Urgency Detection**: Determines report urgency from descriptions and images
+
+## Integration Requirements
+AI services should be implemented with:
+- [Gemini API](https://ai.google.dev/docs/gemini_api) or [OpenRouter](https://openrouter.ai/docs) for production
+- [Hugging Face](https://huggingface.co/docs/api-inference) models as an alternative
+- Configuration in [config.js](mdc:src/config.js) for API endpoints and keys
+
+## Integration Points
+- [CreateReportUseCase](mdc:src/application/use-cases/report/CreateReportUseCase.js): For new report analysis
+- [ReportController](mdc:src/infrastructure/web/controllers/reportController.js): For image uploads
+
+## Analysis Requirements
+1. **Image Classification**:
+   - Input: Report images
+   - Output: Category classification with confidence score
+
+2. **Urgency Detection**:
+   - Input: Report description and images
+   - Output: Urgency level (low, medium, high, critical) with confidence
+
+3. **Real Implementation**:
+   - No mocked responses in production
+   - Proper error handling with fallbacks
+   - Performance optimization for quick user feedback

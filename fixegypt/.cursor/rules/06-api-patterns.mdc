@@ -1,0 +1,52 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# API Patterns & Documentation
+
+## RESTful API Structure
+- Resource-based URLs (`/reports`, `/users`, etc.)
+- HTTP methods for CRUD operations (GET, POST, PUT, DELETE)
+- JSON responses with consistent format
+- Query parameters for filtering, pagination, and sorting
+
+## Response Format
+All API responses follow a consistent structure:
+```json
+{
+  "status": "success|error",
+  "message": "Human-readable message",
+  "data": {
+    "key": "value"
+  }
+}
+```
+
+## Authentication
+- JWT-based authentication
+- Bearer token in Authorization header
+- Refresh token mechanism
+- Role-based access control (citizen vs admin)
+
+## Error Handling
+[Error Handler](mdc:src/infrastructure/web/middlewares/errorHandler.js) provides consistent error responses:
+- Appropriate HTTP status codes
+- Clear error messages
+- Development stacktraces (in development environment)
+
+## Validation
+[Validators](mdc:src/infrastructure/web/validators/reportValidator.js) use Joi for request validation:
+- Comprehensive validation rules
+- Detailed error messages
+- Consistent error format
+
+## Swagger Documentation
+- [Server Configuration](mdc:src/server.js) includes Swagger setup
+- API routes should include JSDoc annotations for Swagger
+- Available at `/api-docs` endpoint
+
+## Rate Limiting
+- Global rate limiting for API endpoints
+- More restrictive limits for authentication endpoints
+- Configuration in [config.js](mdc:src/config.js)
