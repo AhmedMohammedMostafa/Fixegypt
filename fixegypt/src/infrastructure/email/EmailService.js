@@ -55,7 +55,7 @@ class EmailService {
    * @returns {Promise<boolean>} Success status
    */
   async sendVerificationEmail(user, verificationToken) {
-    const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${process.env.FRONTEND_URL || 'http://fixegypt.vercel.app'}/verify-email?token=${verificationToken}`;
     
     const options = this._getBaseEmailOptions(
       user.email,
@@ -93,7 +93,7 @@ class EmailService {
    * @returns {Promise<boolean>} Success status
    */
   async sendReportStatusUpdateEmail(user, report, newStatus, note = '') {
-    const reportUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reports/${report.id}`;
+    const reportUrl = `${process.env.FRONTEND_URL || 'http://fixegypt.vercel.app'}/reports/${report.id}`;
     
     const statusMessages = {
       'pending': 'Your report has been received and is pending review.',
@@ -155,7 +155,7 @@ class EmailService {
    * @returns {Promise<boolean>} Success status
    */
   async sendPasswordResetEmail(user, resetToken) {
-    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://fixegypt.vercel.app'}/reset-password?token=${resetToken}`;
     
     const options = this._getBaseEmailOptions(
       user.email,
@@ -190,7 +190,7 @@ class EmailService {
    * @returns {Promise<boolean>} Success status
    */
   async sendWelcomeEmail(user) {
-    const loginUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/login`;
+    const loginUrl = `${process.env.FRONTEND_URL || 'http://fixegypt.vercel.app'}/login`;
     
     const options = this._getBaseEmailOptions(
       user.email,

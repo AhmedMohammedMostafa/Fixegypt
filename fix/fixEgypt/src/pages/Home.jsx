@@ -158,7 +158,15 @@ function LocateUserOnLoad() {
       (err) => {
         // If user denies or any error, fall back to default
         console.warn("Geolocation failed, using default", err);
+        
+        // Set a default view for Cairo
         map.setView([30.0444, 31.2357], 13);
+        
+        // Only show notification for specific errors in initial load
+        if (err.code === err.POSITION_UNAVAILABLE) {
+          // Silent fallback for initial load - don't show toast here to avoid confusion
+          console.error("Position unavailable during initial map load:", err.message);
+        }
       },
       {
         enableHighAccuracy: true,
@@ -1428,15 +1436,28 @@ export default function Home() {
                   console.error("Geolocation error:", error);
                   setIsLoading(false);
                   
-                  // More specific error messages
+                  // More detailed error messages with fallback actions
                   if (error.code === error.PERMISSION_DENIED) {
                     toast.error("Location access denied. Please enable location services in your browser.");
                   } else if (error.code === error.POSITION_UNAVAILABLE) {
-                    toast.error("Location information is unavailable. Try again in a more open area.");
+                    toast.error("Location information is unavailable. This may be due to poor GPS signal or network issues.");
+                    
+                    // Suggest alternative methods
+                    toast.info("Try selecting a location manually on the map instead.", {
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                    });
+                    
+                    // Default to Cairo as fallback when position is unavailable
+                    const map = document.querySelector('.leaflet-container')?._leaflet_map;
+                    if (map) {
+                      // Set a wider view to let the user navigate
+                      map.setView([30.0444, 31.2357], 12);
+                    }
                   } else if (error.code === error.TIMEOUT) {
-                    toast.error("Location request timed out. Please try again.");
+                    toast.error("Location request timed out. Please try again in an area with better signal.");
                   } else {
-                    toast.error("Couldn't get your location. Please try again.");
+                    toast.error("Couldn't get your location. Please try again or select location manually.");
                   }
                 },
                 {

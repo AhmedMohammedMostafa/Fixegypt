@@ -8,6 +8,11 @@ import adminConfig from '../../config/adminConfig.js';
 import { ApiError } from '../middlewares/errorHandler.js';
 import logger from '../middlewares/logger.js';
 import analyticsService from '../../analytics/AnalyticsService.js';
+import emailService from '../../email/EmailService.js';
+import MongoUserRepository from '../../persistence/repositories/MongoUserRepository.js';
+
+// Create instance of user repository
+const userRepository = new MongoUserRepository();
 
 /**
  * Admin controller for managing admin-specific operations
@@ -466,6 +471,26 @@ class AdminController {
       await report.save();
 
       logger.info(`Report status updated: ${reportId} to ${status} by admin ${req.user.id}`);
+
+      // Get report owner and send email notification
+      try {
+        const reportOwner = await userRepository.findById(report.userId);
+        
+        if (reportOwner) {
+          // Send notification email
+          try {
+            await emailService.sendReportStatusUpdateEmail(reportOwner, report, status, note);
+            logger.info(`Status update email sent to user: ${reportOwner.id} for report: ${reportId}`);
+          } catch (emailError) {
+            logger.error(`Error sending status update email to user ${reportOwner.id}:`, emailError);
+            // Continue processing even if email fails
+          }
+        } else {
+          logger.warn(`Report owner not found for report ${reportId}, cannot send email notification`);
+        }
+      } catch (userError) {
+        logger.error(`Error finding report owner for report ${reportId}:`, userError);
+      }
 
       res.status(200).json({
         status: 'success',

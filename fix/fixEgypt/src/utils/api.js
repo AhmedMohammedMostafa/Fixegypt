@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an axios instance with default config
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api', 
+  baseURL: import.meta.env.VITE_API_URL || 'https://racial-imogen-zeyad-d557eeac.koyeb.app/api', 
   headers: {
     'Content-Type': 'application/json',
   },
@@ -40,7 +40,7 @@ api.interceptors.response.use(
         
         // Use axios directly to avoid interceptors loop
         const refreshResponse = await axios.post(
-          `${originalRequest.baseURL || 'http://localhost:3000/api'}/auth/refresh-token`, 
+          `${originalRequest.baseURL || 'https://racial-imogen-zeyad-d557eeac.koyeb.app/api'}/auth/refresh-token`, 
           { refreshToken }
         );
         
